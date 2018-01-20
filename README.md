@@ -2,7 +2,19 @@
 Papergen
 ========
 
-Generates pages given a page module and module options.
+Generates pages given a page module and module options for
+specific page size.
+
+
+TODO
+----
+
+* Page module and example
+* Book module and example
+* Imposition configuration
+* Reader spreads vs Printer spreads
+* SVG to PDF
+* page numbers, page number positions
 
 Page Module
 -----------
