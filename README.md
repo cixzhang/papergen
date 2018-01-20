@@ -2,6 +2,8 @@
 Papergen
 ========
 
+[![Build Status](https://travis-ci.org/cixzhang/papergen.svg?branch=master)](https://travis-ci.org/cixzhang/papergen)
+
 Generates pages given a page module and module options for
 specific page size.
 
