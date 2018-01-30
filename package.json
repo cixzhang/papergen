@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "Declarative paper generation.",
   "main": "papergen.js",
+  "bin": "papergen.js",
   "scripts": {
     "test": "mocha"
   },

@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 // Papergen
 
 const cli = require('./lib/cli');
