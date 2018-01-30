@@ -117,8 +117,3 @@ Usage
 
 papergen --page=page.js --size=A6 --margin=3mm --grid_size=2 > page.svg
 
-# Or
-
-node page.js --size=A6 --margin=3mm --grid_size=2 > page.svg
-```
-
