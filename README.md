@@ -57,11 +57,13 @@ By default, papergen will support the following options which cannot be overwrit
 
 ### render
 
-Render method should take a receivePage method which will return the next available page as an SVGElement.
-The page module can call this method multiple times to render more than 1 page, for example, rendering
-a spread. Render can also take in inputs as a dictionary in the second parameter. The input dictionary
-will contain the keys defined in the inputs section and their user defined values.
+The render method receives 2 parameters: **renderer** and **options**. Options are the values of the
+inputs. The renderer is an object with the following methods:
 
+### renderer.createPage
+
+Returns a page as a div HTMLElement. Render elements into this page. You can call this method multiple times
+inside render to render multiple pages.
 
 ### example
 
