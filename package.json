@@ -5,15 +5,18 @@
   "main": "papergen.js",
   "bin": "papergen.js",
   "scripts": {
-    "test": "mocha"
+    "test": "mocha",
+    "electron": "electron ./lib/main.js"
   },
   "author": "cixzhang@gmail.com",
   "license": "MIT",
   "devDependencies": {
     "chai": "^4.1.2",
+    "electron": "^1.8.4",
     "mocha": "^4.1.0"
   },
   "dependencies": {
+    "browserify": "^16.1.1",
     "html5-to-pdf": "^2.2.9",
     "jsdom": "^11.6.2",
     "optionator": "^0.8.2"
