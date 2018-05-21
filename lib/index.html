@@ -1,9 +1,17 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
   <head>
-    <meta charset="utf-8">
+    <meta charset="UTF-8">
     <title>Papergen</title>
   </head>
   <body>
+    <script>
+      const { bundlePath, configPath } = require('./config');
+
+      const paperModules = require(bundlePath);
+      const paperConfig = require(configPath);
+      console.log(paperModules);
+      console.log(paperConfig);
+    </script>
   </body>
 </html>

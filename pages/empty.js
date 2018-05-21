@@ -8,4 +8,3 @@ const empty = new Page({
 });
 
 module.exports = empty;
-
