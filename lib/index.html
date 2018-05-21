@@ -9,9 +9,17 @@
       const { bundlePath, configPath } = require('./config');
 
       const paperModules = require(bundlePath);
-      const paperConfig = require(configPath);
+      const {pageConfigs, rendererOptions} = require(configPath);
       console.log(paperModules);
-      console.log(paperConfig);
+      console.log(pageConfigs, rendererOptions);
+
+      const Renderer = require('./renderer');
+      const renderer = new Renderer(rendererOptions);
+      renderer.clear();
+
+      pageConfigs.forEach(page => {
+        renderer.renderPage(paperModules[page.name], page.options);
+      });
     </script>
   </body>
 </html>
