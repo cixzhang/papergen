@@ -1,6 +1,7 @@
 
 const Page = require('../lib/page');
 const PageSizes = require('../lib/pageSizes');
+const d3 = require('d3-selection');
 
 const grid = new Page({
   name: 'Grid',
@@ -23,33 +24,70 @@ const grid = new Page({
     const ns = 'http://www.w3.org/2000/svg';
     const svg = document.createElementNS(ns, 'svg');
     const gridSize = PageSizes.toPixelsFromMM([5], options.ppi)[0];
-    // TODO: debug this
-    for (let x = gridSize; x < width; x += gridSize) {
-      for (let y = gridSize; y < height; y += gridSize) {
-        const hline = document.createElementNS(ns, 'line');
-        hline.setAttributeNS(ns, 'x1', 0);
-        hline.setAttributeNS(ns, 'x2', width);
-        hline.setAttributeNS(ns, 'y1', y);
-        hline.setAttributeNS(ns, 'y2', y);
-        hline.setAttributeNS(ns, 'stroke', 'black');
 
-        const vline = document.createElement('line');
-        vline.setAttributeNS(ns, 'x1', x);
-        vline.setAttributeNS(ns, 'x2', x);
-        vline.setAttributeNS(ns, 'y1', 0);
-        vline.setAttributeNS(ns, 'y2', height);
-        vline.setAttributeNS(ns, 'stroke', 'black');
+    const d3Svg = d3.select(svg);
 
-        svg.appendChild(hline);
-        svg.appendChild(vline);
+    d3Svg.attr('width', '100%');
+    d3Svg.attr('height', '100%');
+
+    const maskId = `grid-mask-${gridSize}-${width}-${height}`;
+    const patternId = `grid-pattern-${gridSize}`;
+    const patternExists = patternId in grid.patterns;
+    const maskExists = maskId in grid.masks;
+
+    if (!maskExists || !patternExists) {
+      const d3Defs = d3Svg.append('defs');
+      if (!patternExists) {
+        const d3Pattern = d3Defs.append('pattern')
+          .attr('id', patternId)
+          .attr('x', 0)
+          .attr('y', 0)
+          .attr('width', gridSize)
+          .attr('height', gridSize)
+          .attr('patternUnits', 'userSpaceOnUse');
+        const d3PatternHLine = d3Pattern.append('line')
+          .attr('x1', 0)
+          .attr('x2', '100%')
+          .attr('y1', gridSize - 1)
+          .attr('y2', gridSize - 2)
+          .attr('stroke', 'white');
+        const d3PatternVLine = d3Pattern.append('line')
+          .attr('y1', 0)
+          .attr('y2', '100%')
+          .attr('x1', gridSize - 1)
+          .attr('x2', gridSize - 2)
+          .attr('stroke', 'white');
+      }
+      if (!maskExists) {
+        const d3Mask = d3Defs.append('mask')
+          .attr('id', maskId)
+          .attr('x', 0)
+          .attr('y', 0)
+          .attr('width', 1)
+          .attr('height', 1)
+        const d3MaskRect = d3Mask.append('rect')
+          .attr('x', 0)
+          .attr('y', 0)
+          .attr('width', width)
+          .attr('height', height)
+          .attr('fill', `url(#${patternId})`);
       }
     }
 
-    svg.style.width = '100%';
-    svg.style.height = '100%';
+    d3Svg.append('rect')
+      .attr('x', 0)
+      .attr('y', 0)
+      .attr('width', '100%')
+      .attr('height', '100%')
+      .attr('fill', 'black')
+      .attr('mask', `url(#${maskId})`);
+
     el.appendChild(svg);
   },
 });
+
+grid.masks = {};
+grid.patterns = {};
 
 module.exports = grid;
 
