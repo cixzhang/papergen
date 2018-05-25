@@ -6,10 +6,11 @@
   </head>
   <body>
     <script>
+      const electron = require('electron');
       const { bundlePath, configPath } = require('./config');
 
       const paperModules = require(bundlePath);
-      const {pageConfigs, rendererOptions} = require(configPath);
+      const { pageConfigs, rendererOptions } = require(configPath);
       console.log(paperModules);
       console.log(pageConfigs, rendererOptions);
 
@@ -20,6 +21,8 @@
       pageConfigs.forEach(page => {
         renderer.renderPage(paperModules[page.name], page.options);
       });
+
+      electron.ipcRenderer.send('render-complete', 0);
     </script>
   </body>
 </html>
