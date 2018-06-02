@@ -48,14 +48,14 @@ const grid = new Page({
         const d3PatternHLine = d3Pattern.append('line')
           .attr('x1', 0)
           .attr('x2', '100%')
-          .attr('y1', gridSize - 1)
-          .attr('y2', gridSize - 2)
+          .attr('y1', 1)
+          .attr('y2', 1)
           .attr('stroke', 'white');
         const d3PatternVLine = d3Pattern.append('line')
           .attr('y1', 0)
           .attr('y2', '100%')
-          .attr('x1', gridSize - 1)
-          .attr('x2', gridSize - 2)
+          .attr('x1', 1)
+          .attr('x2', 1)
           .attr('stroke', 'white');
       }
       if (!maskExists) {
