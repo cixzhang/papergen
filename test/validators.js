@@ -32,6 +32,14 @@ describe('validators', () => {
     testValidator(validators.number, successes, fails);
   });
 
+  it('createNumberBetween', () => {
+    const successes = [1, 2, 3, 4, 5];
+    const fails = [-1, 0, 6, Infinity];
+    const validator = validators.createNumberBetween(1, 5);
+
+    testValidator(validator, successes, fails);
+  });
+
   it('function', () => {
     function t() {};
     const successes = [() => {}, t];

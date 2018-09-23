@@ -8,7 +8,7 @@ const grid = new Page({
   description: 'Draws a grid page.',
   inputs: [
     {
-      key: 'grid_size',
+      key: 'gridSize',
       name: 'Grid Size',
       description: 'The size of each square in the grid.',
       type: 'number',
@@ -16,6 +16,23 @@ const grid = new Page({
       min: 1,
       max: 10,
       unit: 'mm',
+    },
+    {
+      key: 'gridColor',
+      name: 'Grid Color',
+      description: 'Color of the grid lines.',
+      type: 'string',
+      initial: 'black',
+    },
+    {
+      key: 'gridLineWidth',
+      name: 'Grid Line Width',
+      description: 'Line width for the grid.',
+      type: 'number',
+      initial: 0.5,
+      min: 0.5,
+      max: 5,
+      unit: 'px',
     },
   ],
   render: (el, options) => {
@@ -28,7 +45,12 @@ function _renderLines(el, options) {
   const {width, height} = rect;
   const ns = 'http://www.w3.org/2000/svg';
   const svg = document.createElementNS(ns, 'svg');
-  const gridSize = PageSizes.toPixelsFromMM([5], options.ppi)[0];
+  const gridSize = PageSizes.toPixelsFromMM(
+    [options.gridSize],
+    options.ppi
+  )[0];
+  const lineWidth = options.gridLineWidth;
+  const color = options.gridColor;
 
   const numGridX = Math.floor(width/gridSize);
   const numGridY = Math.floor(height/gridSize);
@@ -46,8 +68,8 @@ function _renderLines(el, options) {
       .attr('y2', height - gridY)
       .attr('x1', gridX + gridSize * i)
       .attr('x2', gridX + gridSize * i)
-      .attr('stroke', 'black')
-      .attr('stroke-width', 0.5);
+      .attr('stroke', color)
+      .attr('stroke-width', lineWidth);
   }
 
   for (let i = 0; i < numGridY + 1; i++) {
@@ -56,8 +78,8 @@ function _renderLines(el, options) {
       .attr('x2', width - gridX)
       .attr('y1', gridY + gridSize * i)
       .attr('y2', gridY + gridSize * i)
-      .attr('stroke', 'black')
-      .attr('stroke-width', 0.5);
+      .attr('stroke', color)
+      .attr('stroke-width', lineWidth);
   }
 
   el.appendChild(svg);
