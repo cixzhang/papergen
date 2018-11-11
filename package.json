@@ -6,7 +6,8 @@
   "bin": "papergen.js",
   "scripts": {
     "test": "mocha",
-    "electron": "electron ./lib/main.js"
+    "electron": "electron ./lib/main.js",
+    "build-test-page": "./papergen.js ./pages/grid.js --output=./_test/page.pdf --gridSize=10 --gridColor=red --pageSize=800x800 && open ./_test/page.pdf"
   },
   "author": "cixzhang@gmail.com",
   "license": "MIT",
