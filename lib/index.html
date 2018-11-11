@@ -11,8 +11,6 @@
 
       const paperModules = require(bundlePath);
       const { pageConfigs, rendererOptions } = require(configPath);
-      console.log(paperModules);
-      console.log(pageConfigs, rendererOptions);
 
       const Renderer = require('./renderer');
       const renderer = new Renderer(rendererOptions);
