@@ -10,13 +10,13 @@
       const { bundlePath, configPath } = require('./config');
 
       const paperModules = require(bundlePath);
-      const { pageConfigs, rendererOptions } = require(configPath);
+      const { pages, options } = require(configPath);
 
       const Renderer = require('./renderer');
-      const renderer = new Renderer(rendererOptions);
+      const renderer = new Renderer(options);
       renderer.clear();
 
-      pageConfigs.forEach(page => {
+      pages.forEach(page => {
         renderer.renderPage(paperModules[page.name], page.options);
       });
 

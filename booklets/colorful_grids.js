@@ -1,5 +1,6 @@
 
 const _ = require('lodash');
+const Grid = require('../pages/grid');
 const Booklet = require('../lib/booklet');
 
 const colors = ['red', 'lightcoral', 'lightpink', 'pink', 'palevioletred', 'tomato'];
@@ -9,7 +10,7 @@ const pages = [];
 
 for (let i = 0; i < numPages; i++) {
   pages.push({
-    module: '../pages/grid',
+    module: Grid,
     options: {
       gridSize: 10,
       gridColor: _.sample(colors),

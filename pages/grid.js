@@ -5,6 +5,7 @@ const d3 = require('d3-selection');
 
 const grid = new Page({
   name: 'Grid',
+  filename: __filename,
   description: 'Draws a grid page.',
   inputs: [
     {

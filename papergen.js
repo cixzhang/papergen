@@ -5,10 +5,12 @@ const path = require('path');
 const cli = require('./lib/cli');
 const build = require('./lib/build');
 
+const Booklet = require('./lib/booklet');
+
 const { spawn } = require('child_process');
 
-function papergen(pageConfigs, rendererOptions) {
-  build(pageConfigs, rendererOptions);
+function papergen(pages, options) {
+  build(pages, options);
 
   const electron = path.resolve(__dirname, 'node_modules', '.bin', 'electron');
   const main = path.resolve(__dirname, 'lib', 'main.js');
@@ -26,12 +28,18 @@ function papergen(pageConfigs, rendererOptions) {
 }
 
 papergen.Page = require('./lib/page');
+papergen.fromBooklet = (booklet) => {
+  if (booklet instanceof Booklet) {
+    papergen(booklet.pages, booklet.options);
+    return;
+  }
+  console.error('Not a booklet.');
+};
 
 if (require.main === module) {
   const cliResult = cli(process.argv);
   if (cliResult) {
-    console.log(cliResult);
-    return papergen(cliResult.pageConfigs, cliResult.rendererOptions);
+    return papergen(cliResult.pages, cliResult.options);
   }
 }
 
