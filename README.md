@@ -7,19 +7,23 @@ Papergen
 Generates pages given a page module and module options for
 specific page size.
 
+Usage
+-----
 
-TODO
-----
+Generate PDF for a page:
 
-* Page module and example
-* Book module and example
-* Imposition configuration
-* Reader spreads vs Printer spreads
-* SVG to PDF
-* page numbers, page number positions
+```
+papergen /path/to/page.js -o page.pdf --additionalPageOptions
+```
 
-Page Module
------------
+Generate PDF for a booklet:
+
+```
+papergen /path/to/booklet.js -o book.pdf
+```
+
+Writing a custom Page Module
+----------------------------
 
 A page module should contain a `page.js` which should export an object
 describing the page's name, description, inputs and render method.
@@ -51,19 +55,15 @@ For number types, these additional properties can be used:
 
 By default, papergen will support the following options which cannot be overwritten:
 
-* **size**: Size of the page
-* **margin**: Size of the margin within each page
-* **color**: Default text color
+* **pageSize**: Size of the page
+* **landscape**: Whether the page will be rendered in landscape
+* **portrait**: Similar to landscape, but for portrait. Only one of landscape or portrait will be used.
+* **ppi**: Pixels per inch
 
 ### render
 
-The render method receives 2 parameters: **renderer** and **options**. Options are the values of the
-inputs. The renderer is an object with the following methods:
-
-### renderer.createPage
-
-Returns a page as a div HTMLElement. Render elements into this page. You can call this method multiple times
-inside render to render multiple pages.
+The render method receives 2 parameters: **el** and **options**. Options are the values of the
+inputs. The el is an HTML element that you'll insert other elements into to draw the page.
 
 ### example
 
@@ -74,6 +74,7 @@ import Page from papergen;
 
 module.exports = Page({
   name: 'Grid',
+  filename: __filename,
   description: 'Produces a grid filled page.',
   inputs: [
     {
@@ -99,23 +100,14 @@ module.exports = Page({
 To validate your page module, you can run the `page.js` file:
 
 ```
-node page.js
-
-> Grid
-> ----
-> Produces a grid filled page.
->
->   --size       String     Paper size: Size of the page (ex. A5, B6, Letter) or dimensions in cms (ex. 20x40)
->   --margin     Number     Page margin: Size of the margin within each page. (unit: mm)
->   --color      String     Default color: Default text color.
->   --grid_size  Number     Grid Size: The size of each square in the grid. (unit: mm, initial: 5)
+node /path/to/page.js
 ```
 
-Usage
------
+If everything's good, nothing will be printed, otherwise, we print the errors.
 
-```
-# This will generate a 2mm grid in `page.svg`
+TODO
+----
 
-papergen --page=page.js --size=A6 --margin=3mm --grid_size=2 > page.svg
-
+* Imposition configuration
+* Reader spreads vs Printer spreads
+* page numbers, page number positions
