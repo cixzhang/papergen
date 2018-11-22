@@ -6,6 +6,7 @@
   "bin": "papergen.js",
   "scripts": {
     "test": "mocha",
+    "start": "tsc -w -p .",
     "electron": "electron ./lib/main.js",
     "build-test-page": "./papergen.js ./pages/grid --output=./_test/page.pdf --gridSize=10 --gridColor=red --pageSize=800x800 && open ./_test/page.pdf",
     "build-test-book": "./papergen.js ./booklets/colorful_grids --output=./_test/booklet.pdf && open ./_test/booklet.pdf"
@@ -21,6 +22,8 @@
   },
   "dependencies": {
     "browserify": "^16.1.1",
-    "optionator": "^0.8.2"
+    "optionator": "^0.8.2",
+    "systemjs": "^2.1.1",
+    "typescript": "^3.1.6"
   }
 }
