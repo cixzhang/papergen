@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-import {BookletPage, BookletOptions} from './lib/interfaces';
+import {BookletPage, BookletOptions} from './lib/ts/interfaces';
 
 const path = require('path');
 const cli = require('./lib/cli');

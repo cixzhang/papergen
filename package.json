@@ -7,6 +7,7 @@
   "scripts": {
     "test": "mocha",
     "start": "tsc -w -p .",
+    "prepare": "tsc -p .",
     "electron": "electron ./lib/main.js",
     "build-test-page": "./papergen.js ./pages/grid --output=./_test/page.pdf --gridSize=10 --gridColor=red --pageSize=800x800 && open ./_test/page.pdf",
     "build-test-book": "./papergen.js ./booklets/colorful_grids --output=./_test/booklet.pdf && open ./_test/booklet.pdf"

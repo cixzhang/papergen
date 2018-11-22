@@ -4,3 +4,4 @@ build
 test.pdf
 _test
 lib/ts/*.js
+papergen.js
